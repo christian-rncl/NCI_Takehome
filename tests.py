@@ -127,6 +127,11 @@ def test_card_equality():
     lst.remove(red_3_card)
     assert lst == []
 
+#####################
+### CardGame tests
+#####################
+
+
 
 #####################
 ### Assumptions test cases

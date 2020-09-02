@@ -65,47 +65,30 @@ class CardGame(ABC):
         self._valid_moves = valid_moves
         self._card_deck.shuffle()
 
-    def start_game(self):
-        """ Adds players and Starts a game loop. Stopped by is_game_over.
-        Displays prompts and relevant game information.
+    def get_players(self):
+        return self._players #TODO: consider a deep copy
+
+    def get_valid_moves(self):
+        return self._valid_moves #TODO: consider a deep copy
+
+    def add_players(self):
+        """Populates _players with Player objects
         """
+        for i in range(self._num_players):
+            self._players.append(Player("Player %d" % (i + 1)))
 
-        def add_players():
-            for i in range(self._num_players):
-                self._players.append(Player("Player %d" % (i + 1)))
-
-        def parse_move(player_name):
-            valid_input = False
-
-            while not valid_input:
-                print("%s's turn" % player_name)
-                usr_mv = input().lower().strip()
-                valid_input = usr_mv in self._valid_moves
-
-                if not valid_input:
-                    print("Invalid move. Please try again.")
-
-            return usr_mv
-
-        add_players()
-        print("--- Get Ready, Starting Game. ---")
-
-        game_over = False
-
-        while not game_over:
-            for player in self._players:
-                move = parse_move(player.name)
-                self.step(player, move)
-                game_over = self.is_game_over()
-
-        self.end_game()
+    def validate_move(self, move_str) -> bool:
+        """ Returns True if move_str is a valid move, False oth.
+        """
+        move_str = move_str.lower().strip()
+        return move_str in self._valid_moves
 
     def _draw(self):
         return self._card_deck.draw()
 
     @abstractmethod
-    def end_game(self):
-        """ Finishes game, displays winner or renders etc...
+    def pick_winner(self):
+        """ Picks a player from _players as winner of game
         """
         return NotImplemented
 

@@ -1,10 +1,13 @@
-"""NCI take home, main driver for take hom assess.
+"""NCI take home
+main driver for take hom assess.
 Contains implementation of game as described in prompt
 Author: Christian Roncal, cjl.roncal@gmail.com
 """
 
-from cardgame import CardGame
-from deck import Deck
+from model.cardgame import CardGame
+from model.deck import Deck
+from controller import Controller
+from view import View
 
 
 class ColorCardGame(CardGame):
@@ -28,7 +31,6 @@ class ColorCardGame(CardGame):
         card = self._draw()
         player.draw(card)
         self.num_moves -= 1
-        print("%s's hand: %s" % (player.name, player.get_hand()))
 
     def is_game_over(self):
         return self.num_moves <= 0
@@ -41,7 +43,7 @@ class ColorCardGame(CardGame):
 
         return score
 
-    def end_game(self):
+    def pick_winner(self):
         winner = None
         hi_score = 0
 
@@ -51,11 +53,11 @@ class ColorCardGame(CardGame):
                 winner = player
                 hi_score = score
 
-        print("Game Over!")
-        print("The winner is: %s with %d points!" % (winner.name, hi_score))
-        print("Winning hand: %s" % (winner.get_hand()))
+        return winner, hi_score
 
 
 if __name__ == '__main__':
-    game = ColorCardGame()
-    game.start_game()
+    cardgame = ColorCardGame()
+    view = View()
+    controller = Controller(cardgame, view)
+    controller.start()

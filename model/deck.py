@@ -4,7 +4,7 @@ Author: Christian Roncal, cjl.roncal@gmail.com
 
 import random
 from itertools import product
-from deck_exceptions import InvalidDeckSizeException, EmptyDeckException
+from model.deck_exceptions import InvalidDeckSizeException, EmptyDeckException
 
 class Card:
     """Basic card class nothing much to say.

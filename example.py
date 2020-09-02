@@ -62,5 +62,6 @@ class ColorGameVariant(CardGame):
         print("The winner is: %s with %d points!" % (winner.name, hi_score))
         print("Winning hand: %s" % (winner.get_hand()))
 
-game = ColorGameVariant()
-game.start_game()
+if __name__ == "__main__":
+    game = ColorGameVariant()
+    game.start_game()

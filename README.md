@@ -17,11 +17,10 @@ Testing: Create test cases to test the above operations.
  
 Please put the code in an online repository and provide the link before the interview: github, gitlab, etc. 
 
-## Documentation
-
-### Assumptions from prompt
+## Assumptions from prompt
 The prompt is very short, leaving room for some assumptions. In this section I enumerate assumptions/clarifications I've made about the game and specification.
 
+1. The game is played through the command line, where each player takes turns entering their move as a string.
 1. Each player will take a turn, in serial fashion, drawing from the top of the deck. 
 2. The number value in each card can only be the integers 1-10.
 3. Each player gets a fixed amount of 'moves', 3, in the vanilla case.  
@@ -33,8 +32,17 @@ The prompt is very short, leaving room for some assumptions. In this section I e
 6. The user/dev can't request a deck of cards $<$ the number of possible combinations. An error will be thrown in this case
 7.  In the case that the user/dev requests a deck of cards $>$ possible combinations, each card combinations must be present at least once.
 
+# Documentation
+
+## Usage:
+0. To play a classic card game, simply run driver.py
+1. See driver.py and example.py to see how this can be used to create variants of 'card games'
+2. Run pytest tests.py to run all tests
+
+
 ###  Implementation Details
 
-This implementation uses the Flyweight design pattern for the card objects to maximize efficiency. Because of the 'immutable nature' of `Card`, only one instance for each unique (color, number) combination needs to be created.
+This implementation tries to utilize the Flyweight design pattern for the card objects to maximize efficiency. This means that each card combination is only instantiated once
+
 
 
