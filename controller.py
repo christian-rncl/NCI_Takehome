@@ -24,7 +24,7 @@ class Controller:
         valid_input = False
 
         while not valid_input:
-            self.view.prompt_player(player_name, self.cardgame.get_valid_moves())
+            self.view.display_player_prompt(player_name, self.cardgame.get_valid_moves())
             usr_mv = input().lower().strip()
             valid_input = self.cardgame.validate_move(usr_mv)
 
@@ -38,7 +38,7 @@ class Controller:
         Displays prompts and relevant game information.
         """
 
-        self.view.start_game()
+        self.view.display_game_start()
         self.cardgame.add_players()
 
         game_over = False

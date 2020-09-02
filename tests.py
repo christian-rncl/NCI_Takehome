@@ -2,13 +2,16 @@
 Author: Christian Roncal, cjl.roncal@gmail.com
 """
 
-from itertools import permutations
+from itertools import permutations, combinations
 import pytest
 import sys
 sys.path.append('model/')
+sys.path.append('.')
+from classic_game import ColorCardGame
 from deck import Deck
 from deck_exceptions import EmptyDeckException, InvalidDeckSizeException
 from deck import Card
+from cardgame import Player
 
 #####################
 ### Prompt test cases
@@ -132,6 +135,66 @@ def test_card_equality():
 #####################
 ### CardGame tests
 #####################
+
+def test_cardgame_basic():
+    """Basic unit test of color card game
+    """
+    cardgame = ColorCardGame()
+    cardgame.add_players()
+    players = cardgame._players
+    assert len(players) == 2
+    p1, p2 = players[0], players[1]
+
+    assert cardgame.num_moves == 6
+    assert not cardgame.is_game_over()
+    for _ in range(3):
+        cardgame.step(p1, "draw")
+        cardgame.step(p2, "draw")
+    assert cardgame.is_game_over
+
+    p1_score = cardgame.tally(p1)
+    p2_score = cardgame.tally(p2)
+
+    winner, score = cardgame.pick_winner()
+
+    if winner.name == p1.name:
+        assert score == p1_score
+        assert p1_score > p2_score
+    else:
+        assert score == p2_score
+        assert p2_score > p1_score
+
+def test_validation():
+    """Testing validation for parsing user inputs
+    """
+    cardgame = ColorCardGame()
+    assert cardgame.validate_move("draw")
+    assert cardgame.validate_move("DRAW")
+    assert cardgame.validate_move("dRaW")
+    assert cardgame.validate_move("    dRaW    ")
+    assert not cardgame.validate_move("")
+    assert not cardgame.validate_move("random")
+    assert not cardgame.validate_move("        ")
+
+def test_score_calculation():
+    """Test score calculation for classic game
+    """
+    deck = Deck() # default unshuffled deck
+    possible_hands = combinations(deck.card_deck, 3)
+    cardgame = ColorCardGame()
+    color_values = {'red':3, 'yellow':2, 'green':1}
+
+    def tally_hand(hand):
+        total = 0
+        for card in hand:
+            total += color_values[card.color] * card.number
+        return total
+
+    player = Player("Joe")
+    for hand in possible_hands:
+        player._hand = hand
+        assert cardgame.tally(player) == tally_hand(hand)
+
 
 
 

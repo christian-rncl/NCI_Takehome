@@ -8,7 +8,7 @@ class View:
     """
 
     @staticmethod
-    def prompt_player(player_name, moves):
+    def display_player_prompt(player_name, moves):
         """Displays prompt for @player_name and
         available commands user can enter through @moves
         """
@@ -18,7 +18,7 @@ class View:
         print("-" * 12)
 
     @staticmethod
-    def start_game():
+    def display_game_start():
         """Informational display at beginning of game
         """
         print("*** Card Game NCI Take Home ***")

@@ -1,5 +1,6 @@
 
 # README: NCI Take Home
+Christian Roncal, cjl.roncal@gmail.com
 
 ## Take-home Prompt
 
@@ -36,13 +37,46 @@ The prompt is very short, leaving room for some assumptions. In this section I e
 
 ## Usage:
 0. To play a classic card game, simply run driver.py
-1. See driver.py and example.py to see how this can be used to create variants of 'card games'
-2. Run pytest tests.py to run all tests
+1. See classic_game.py and example.py to see how this can be used to create variants of 'card game' classes.
+2. See driver.py to see how to run card games
+3. Run pytest tests.py to run all tests, will require pytest installation
 
 
-###  Implementation Details
+##  Implementation Details
 
-This implementation tries to utilize the Flyweight design pattern for the card objects to maximize efficiency. This means that each card combination is only instantiated once
+### MVC
+
+This implementations uses the standard MVC design pattern. The controller module runs the game and coordinates the view and model modules. The view module simply contains the print statements that displays the game state in stdout. The model contains the game logic.
+
+#### Model:
+The model is comprised of multiple objects.
+In general the `CardGame` abstract base class has a
+`Deck` object which is a wrapper on a list of `Card` objects. The `Deck` class implements features #1, #2, #3 from the prompt. The `CardGame` class also contains a list of `Player` objects which are the players for that game instance.
+
+The game as described in the prompt is implemented as a subclass of `CardGame` called `ColorCardGame` as defined in the `classic_game.py` module. A variant is also defined in `example.py` as an example
+![card_game](images/cardgame_uml.png)
+![color_game](images/color_game_uml.png)
 
 
+![deck](images/deck_uml.png)
+
+
+#### View:
+![viewuml](images/view_uml.png)
+
+#### Controller:
+![controlleruml](images/controller_uml.png)
+
+
+### "Flyweight"
+This implementation also *tries* to utilize the Flyweight design pattern for the card objects to maximize efficiency. This means that each card combination is only instantiated once. This optimization only becomes relevant in cases where the deck of cards contains more cards than the number of all possible combinations.
+
+
+# Testing and code coverage
+Formal testing was only done on model files.
+The controller/view files were better tested by using
+
+The missing lines that aren't tested are simple/one-line getters/setters.
+
+![codecov](images/code_coverage.png)
 
