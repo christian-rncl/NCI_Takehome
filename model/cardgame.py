@@ -66,10 +66,14 @@ class CardGame(ABC):
         self._card_deck.shuffle()
 
     def get_players(self):
-        return self._players #TODO: consider a deep copy
+        """Getter for _players
+        """
+        return self._players
 
     def get_valid_moves(self):
-        return self._valid_moves #TODO: consider a deep copy
+        """Getter for _valid_moves
+        """
+        return self._valid_moves
 
     def add_players(self):
         """Populates _players with Player objects

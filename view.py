@@ -1,11 +1,11 @@
-"""NCI take home, controller for cardgame
-follows MVC pattern.
+"""NCI take home, view for cardgame
 Author: Christian Roncal, cjl.roncal@gmail.com
 """
 
-from abc import ABC, abstractmethod
-
-class View(ABC):
+class View:
+    """View object containing static methods for
+    command line display for card game
+    """
 
     @staticmethod
     def prompt_player(player_name, moves):

@@ -25,9 +25,10 @@ class ColorCardGame(CardGame):
         self.num_moves = 6
 
     def step(self, player, move):
-        card = self._draw()
-        player.draw(card)
-        self.num_moves -= 1
+        if move == 'draw':
+            card = self._draw()
+            player.draw(card)
+            self.num_moves -= 1
 
     def is_game_over(self):
         return self.num_moves <= 0
