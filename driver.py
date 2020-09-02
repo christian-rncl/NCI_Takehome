@@ -6,6 +6,7 @@ Author: Christian Roncal, cjl.roncal@gmail.com
 from cardgame import CardGame
 from deck import Deck
 
+
 class ColorCardGame(CardGame):
     """Color card game as descried in prompt.
     2 players take turns drawing cards

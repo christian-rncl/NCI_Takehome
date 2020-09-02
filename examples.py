@@ -1,7 +1,19 @@
-from cardgame import CardGame, Player
+"""NCI take home, example variant implementation
+Demonstrates ease of creating aribtrary game variants
+Author: Christian Roncal, cjl.roncal@gmail.com
+"""
+
+from cardgame import CardGame
 from deck import Deck
 
-class ColorGame_Variant(CardGame):
+class ColorGameVariant(CardGame):
+    """Example Variant implemenatations
+    In this game, there are extra cards with different color points
+    Players can also "discard a card".
+    Players also have 4 moves each.
+    Score calculation also uses a multiplier that doubles a card value\
+        if the card number is even.
+    """
 
     def __init__(self):
         # game settings:
@@ -10,8 +22,8 @@ class ColorGame_Variant(CardGame):
         deck = Deck(color_values=color_values)
         valid_moves = ['draw', 'disc']
 
-        super(ColorGame_Variant, self).__init__(num_players, deck, valid_moves)
-        self.num_moves = 7
+        super(ColorGameVariant, self).__init__(num_players, deck, valid_moves)
+        self.num_moves = 8
 
     def step(self, player, move):
         if move == 'draw':
@@ -50,5 +62,5 @@ class ColorGame_Variant(CardGame):
         print("The winner is: %s with %d points!" % (winner.name, hi_score))
         print("Winning hand: %s" % (winner.get_hand()))
 
-game = ColorGame_Variant()
+game = ColorGameVariant()
 game.start_game()
