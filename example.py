@@ -17,13 +17,14 @@ class ColorGameVariant(CardGame):
 
     def __init__(self):
         # game settings:
-        num_players = 2
+        num_players = 3
         color_values = {'red':3, 'yellow':2, 'green':1, 'blue': 4, 'purple': 5}
         deck = Deck(color_values=color_values)
         valid_moves = ['draw', 'disc']
 
         super(ColorGameVariant, self).__init__(num_players, deck, valid_moves)
-        self.num_moves = 8
+        self.num_moves = 6
+
 
     def step(self, player, move):
         if move == 'draw':
@@ -32,9 +33,7 @@ class ColorGameVariant(CardGame):
         else:
             player.get_hand().pop()
             self.num_moves -= 1
-
         self.num_moves -= 1
-        print("%s's hand: %s" % (player.name, player.get_hand()))
 
     def is_game_over(self):
         return self.num_moves <= 0
@@ -48,7 +47,7 @@ class ColorGameVariant(CardGame):
 
         return score
 
-    def end_game(self):
+    def pick_winner(self):
         winner = None
         hi_score = 0
 
@@ -58,10 +57,5 @@ class ColorGameVariant(CardGame):
                 winner = player
                 hi_score = score
 
-        print("Game Over!")
-        print("The winner is: %s with %d points!" % (winner.name, hi_score))
-        print("Winning hand: %s" % (winner.get_hand()))
 
-if __name__ == "__main__":
-    game = ColorGameVariant()
-    game.start_game()
+        return winner, hi_score

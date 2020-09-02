@@ -4,6 +4,8 @@ Author: Christian Roncal, cjl.roncal@gmail.com
 
 from itertools import permutations
 import pytest
+import sys
+sys.path.append('model/')
 from deck import Deck
 from deck_exceptions import EmptyDeckException, InvalidDeckSizeException
 from deck import Card

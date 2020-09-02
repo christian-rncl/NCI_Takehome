@@ -52,4 +52,7 @@ class Controller:
 
         winner, score = self.cardgame.pick_winner()
 
-        self.view.display_winner(winner.name, score, winner.get_hand())
+        if not winner:
+            self.view.display_draw_game()
+        else:
+            self.view.display_winner(winner.name, score, winner.get_hand())

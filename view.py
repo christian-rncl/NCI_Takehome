@@ -47,3 +47,10 @@ class View(ABC):
         """Display player's hand. Called after every move
         """
         print("%s's hand: %s " % (player_name, hand))
+
+    @staticmethod
+    def display_draw_game():
+        print("+" * 25)
+        print("GAME OVER!")
+        print("DRAW!")
+        print("+" * 25)
