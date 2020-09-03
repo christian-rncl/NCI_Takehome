@@ -24,7 +24,7 @@ You posted gameplay footage of your CardGame implementation online and it's now 
         The user registers for an account with a `username` and `password`
 
     Result:<br>
-        If the the `username` is not unique, then the user is prompted to try again with a different name. Otherwise the user is added to the leaderboard with 0 games and 0 wins and 0 losses under their belt
+        If the the `username` is not unique, then the user is prompted to try again with a different name. Otherwise the user is added to the leaderboard with 0 games and 0 wins and 0 losses under their belt. The message "User created" is displayed if they succeed.
 
 
 3. Given:<br>
@@ -54,10 +54,34 @@ You posted gameplay footage of your CardGame implementation online and it's now 
     Result:<br>
     3 cards are dealt to the player. The cards are seen by both players in a match. The scores are tallied and the winner is displayed with a message saying "`username` won!!!" The wins/losses score for each person is added to the database.
 
-## Flow of Events
+## Server Interactions
 
 ### Behavior 1:
-`
     client --> GET / --> server
-    client <-- / < -- c
-`
+    client <-- 200 index.html <-- server
+
+### Behavior 2:
+
+Security considerations: use hashing/salt/pepper for at rest storage
+Make sure to use SSL for in transit security
+
+    client -->  POST {'name':username, 'password':password} --> server
+
+If the username exists
+
+    client <-- 409 {'message': Please try again}  <-- server
+
+Otherwise
+
+    client <-- 200 {'message': User Created}  <-- server
+
+While adding user information to `Players` database with hashed/salted/peppered password
+
+### Behavior 3
+Create a template page for a user as described in this behavior , called `userpage`. The page contains a table displaying displaying `Players` table with columns ['Name', 'Score'] oredered by Ascending score, Ascending Name
+
+    client <-- 200 (template page ) <-- Server
+
+
+## REST endpoints
+
