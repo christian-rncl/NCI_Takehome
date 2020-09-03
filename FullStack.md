@@ -43,7 +43,7 @@ You posted gameplay footage of your CardGame implementation online and it's now 
    The registered user clicks the "play a game" button.
 
    Result:<br>
-   The user is matched with a person from a queue to start a game. Both users will see the same view (other player's name, each other's cards and a button that says "draw!", and a score)
+   A session is created for a user with a unique link. The user can share this link with another registered user. If the registered user follows the link they are brought into the game
 
 5. Given:<br>
     A player is in a match made game
@@ -54,7 +54,7 @@ You posted gameplay footage of your CardGame implementation online and it's now 
     Result:<br>
     3 cards are dealt to the player. The cards are seen by both players in a match. The scores are tallied and the winner is displayed with a message saying "`username` won!!!" The wins/losses score for each person is added to the database.
 
-## Server Interactions
+## Implementation/Server Interactions
 
 ### Behavior 1:
     client --> GET / --> server
@@ -80,8 +80,36 @@ While adding user information to `Players` database with hashed/salted/peppered 
 ### Behavior 3
 Create a template page for a user as described in this behavior , called `userpage`. The page contains a table displaying displaying `Players` table with columns ['Name', 'Score'] oredered by Ascending score, Ascending Name
 
-    client <-- 200 (template page ) <-- Server
+    client <-- 200 userpage <-- server
 
+### Behavior 4
+Create a unique string as the game id. Expose the game session at URI:
+
+    cardgame.io/game/UNIQUE_STRING
+
+Render a template as described in Behavior #4 for the response. Use socket.io websockets to enable user interaction
+
+### Behavior 5
+Create a unique string as the game id. Expose the game session at URI:
+
+    cardgame.io/game/UNIQUE_STRING
+
+Render a template as described in Behavior #4 for the response. Use socket.io websockets to enable user interaction (render the same page/information for both users)
+
+Server interaction when a user presses "draw!!" button:
+
+    client --> GET cardgame.io/game/draw --> server
+    client <-- 200 {['(red,3), (green,1), ('yellow,9)']} <-- server
+
+Where the response object is a random card combination as described in the classic card game description
+
+
+## Model
 
 ## REST endpoints
+
+## View
+
+## Stack
+
 
