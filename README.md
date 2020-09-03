@@ -74,7 +74,9 @@ This implementation also *tries* to utilize the Flyweight design pattern for the
 
 # Testing and code coverage
 Formal testing was only done on model files.
-The controller/view files were better tested by using
+The controller/view files were better tested by playing the game.
+
+The tests are focused primarily on 1. the game variant described by the prompt. 2. the assumptions. 3. light stress testing
 
 The missing lines that aren't tested are simple/one-line getters/setters.
 
